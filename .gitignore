@@ -41,3 +41,4 @@ coverage/
 tsconfig.tsbuildinfo
 
 bun.lock
+qodana.yaml

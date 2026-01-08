@@ -4,8 +4,7 @@
   "scripts": {
     "dev": "bun run --watch src/main.ts",
     "start": "bun run src/main.ts",
-    "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc"
   },
   "dependencies": {
     "typebox": "^1.0.75",
