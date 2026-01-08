@@ -2,14 +2,39 @@
   "name": "azhot-ts",
   "version": "1.0.50",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "bun run --watch src/index.ts"
+    "dev": "bun run --watch src/main.ts",
+    "start": "bun run src/main.ts",
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "elysia": "latest"
+    "typebox": "^1.0.75",
+    "cheerio": "^1.1.2",
+    "dotenv": "^17.2.3",
+    "elysia": "1.4.21",
+    "exact-mirror": "^0.2.6",
+    "node-cron": "4.2.1",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "ws": "^8.19.0"
   },
   "devDependencies": {
+    "@types/bun": "^1.3.5",
+    "@types/node": "^25.0.3",
+    "@types/node-cron": "^3.0.11",
+    "@types/ws": "^8.18.1",
     "bun-types": "latest"
   },
-  "module": "src/index.js"
+  "module": "src/main.js",
+  "description": "一个提供各大平台热搜API的聚合服务",
+  "main": "src/main.js",
+  "keywords": [
+    "api",
+    "hot-search",
+    "web-scraping",
+    "elysia",
+    "typescript"
+  ],
+  "author": "azhot",
+  "license": "AGPL-3.0"
 }
