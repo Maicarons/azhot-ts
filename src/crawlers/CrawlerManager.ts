@@ -86,6 +86,11 @@ export class CrawlerManager {
   }
 
   async crawl(platform: string): Promise<HotItem[]> {
+    // Filter out common static file requests that are not platforms
+    if (this.isStaticFileRequest(platform)) {
+      throw new Error(`Invalid platform name: ${platform}`);
+    }
+    
     const crawler = this.crawlers.get(platform);
     if (!crawler) {
       // Check if the platform exists in our configs but hasn't been implemented yet
@@ -144,6 +149,11 @@ export class CrawlerManager {
 
   async refreshCache(platform?: string): Promise<void> {
     if (platform) {
+      // Filter out common static file requests that are not platforms
+      if (this.isStaticFileRequest(platform)) {
+        throw new Error(`Invalid platform name: ${platform}`);
+      }
+      
       const crawler = this.crawlers.get(platform);
       if (!crawler) {
         // Check if the platform exists in our configs but hasn't been implemented yet
@@ -166,5 +176,11 @@ export class CrawlerManager {
         }
       }
     }
+  }
+
+  private isStaticFileRequest(platform: string): boolean {
+    // Check if the platform name looks like a static file request
+    const staticFileExtensions = ['.ico', '.css', '.js', '.png', '.jpg', '.jpeg', '.gif', '.svg', '.woff', '.woff2', '.ttf', '.eot'];
+    return staticFileExtensions.some(ext => platform.toLowerCase().endsWith(ext));
   }
 }

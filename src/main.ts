@@ -7,7 +7,7 @@ import { cache } from './utils/cache';
 import cron from 'node-cron';
 import { HotService } from './services/HotService';
 
-const app = new Elysia()
+ const app = new Elysia()
   .use(hotController)
   .use(mcpController)
   .use(webSocketController)
@@ -57,3 +57,5 @@ process.on('SIGTERM', () => {
   console.log('Shutting down gracefully...');
   process.exit(0);
 });
+
+export default app;

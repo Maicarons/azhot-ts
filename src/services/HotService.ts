@@ -11,6 +11,19 @@ export class HotService {
 
   async getHotData(platform: string): Promise<HotData> {
     try {
+      // Check if the platform name looks like a static file request
+      const staticFileExtensions = ['.ico', '.css', '.js', '.png', '.jpg', '.jpeg', '.gif', '.svg', '.woff', '.woff2', '.ttf', '.eot'];
+      if (staticFileExtensions.some(ext => platform.toLowerCase().endsWith(ext))) {
+        console.error(`Invalid platform name: ${platform}`);
+        return {
+          code: 500,
+          icon: '',
+          message: `Invalid platform name: ${platform}`,
+          obj: [],
+          timestamp: Date.now(),
+        };
+      }
+      
       const data = await this.crawlerManager.crawl(platform);
       const crawler = this.crawlerManager.getSupportedPlatforms().find(p => p.name === platform);
 
@@ -72,6 +85,13 @@ export class HotService {
   }
 
   async refreshCache(platform?: string): Promise<void> {
+    if (platform) {
+      // Check if the platform name looks like a static file request
+      const staticFileExtensions = ['.ico', '.css', '.js', '.png', '.jpg', '.jpeg', '.gif', '.svg', '.woff', '.woff2', '.ttf', '.eot'];
+      if (staticFileExtensions.some(ext => platform.toLowerCase().endsWith(ext))) {
+        throw new Error(`Invalid platform name: ${platform}`);
+      }
+    }
     await this.crawlerManager.refreshCache(platform);
   }
 }
