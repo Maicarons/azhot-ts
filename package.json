@@ -4,16 +4,18 @@
   "scripts": {
     "dev": "bun run --watch src/main.ts",
     "start": "bun run src/main.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "prepare": "husky"
   },
   "dependencies": {
-    "typebox": "^1.0.75",
+    "@elysiajs/openapi": "^1.4.13",
     "cheerio": "^1.1.2",
     "dotenv": "^17.2.3",
     "elysia": "1.4.21",
     "exact-mirror": "^0.2.6",
     "node-cron": "4.2.1",
     "tsx": "^4.21.0",
+    "typebox": "^1.0.75",
     "typescript": "^5.9.3",
     "ws": "^8.19.0"
   },
@@ -22,7 +24,10 @@
     "@types/node": "^25.0.3",
     "@types/node-cron": "^3.0.11",
     "@types/ws": "^8.18.1",
-    "bun-types": "latest"
+    "bun-types": "latest",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
+    "prettier": "3.7.4"
   },
   "module": "src/main.js",
   "description": "一个提供各大平台热搜API的聚合服务",
@@ -35,5 +40,8 @@
     "typescript"
   ],
   "author": "azhot",
-  "license": "AGPL-3.0"
+  "license": "AGPL-3.0",
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
+  }
 }

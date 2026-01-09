@@ -34,6 +34,7 @@
 ## API响应示例
 
 API成功返回了历史事件，如：
+
 - "金国攻陷宋朝首都开封，史称靖康之耻" (链接: https://baike.baidu.com/item/...)
 - "南宋抗元英雄文天祥逝世" (链接: https://baike.baidu.com/item/...)
 - "五虎上将顾祝同出生" (链接: https://baike.baidu.com/item/...)

@@ -1,34 +1,34 @@
-import { BaseCrawler } from './BaseCrawler';
-import { HotItem } from '../types';
-import { cache } from '../utils/cache';
-import { ZhihuCrawler } from './ZhihuCrawler';
-import { WeiboCrawler } from './WeiboCrawler';
-import { BaiduCrawler } from './BaiduCrawler';
-import { ToutiaoCrawler } from './ToutiaoCrawler';
-import { BilibiliCrawler } from './BilibiliCrawler';
-import { CCTVCrawler } from './CCTVCrawler';
-import { Doc360Crawler } from './Doc360Crawler';
-import { Search360Crawler } from './Search360Crawler';
-import { AcFunCrawler } from './AcFunCrawler';
-import { CSDNCrawler } from './CSDNCrawler';
-import { DongQiuDiCrawler } from './DongQiuDiCrawler';
-import { DouBanCrawler } from './DouBanCrawler';
-import { DouYinCrawler } from './DouYinCrawler';
-import { GitHubCrawler } from './GitHubCrawler';
-import { GuoJiaDiLiCrawler } from './GuoJiaDiLiCrawler';
-import { HistoryTodayCrawler } from './HistoryTodayCrawler';
-import { HuPuCrawler } from './HuPuCrawler';
-import { ITHomeCrawler } from './ITHomeCrawler';
-import { LishipinCrawler } from './LishipinCrawler';
-import { NanfangzhoumoCrawler } from './NanfangzhoumoCrawler';
-import { PengpaiCrawler } from './PengpaiCrawler';
-import { QqnewsCrawler } from './QqnewsCrawler';
-import { QuarkCrawler } from './QuarkCrawler';
-import { RenminCrawler } from './RenminCrawler';
-import { ShaoShuPaiCrawler } from './ShaoShuPaiCrawler';
-import { SougouCrawler } from './SougouCrawler';
-import { SouhuCrawler } from './SouhuCrawler';
-import { PLATFORM_CONFIGS } from '../api-routes';
+import { BaseCrawler } from "./BaseCrawler";
+import { HotItem } from "../types";
+import { cache } from "../utils/cache";
+import { ZhihuCrawler } from "./ZhihuCrawler";
+import { WeiboCrawler } from "./WeiboCrawler";
+import { BaiduCrawler } from "./BaiduCrawler";
+import { ToutiaoCrawler } from "./ToutiaoCrawler";
+import { BilibiliCrawler } from "./BilibiliCrawler";
+import { CCTVCrawler } from "./CCTVCrawler";
+import { Doc360Crawler } from "./Doc360Crawler";
+import { Search360Crawler } from "./Search360Crawler";
+import { AcFunCrawler } from "./AcFunCrawler";
+import { CSDNCrawler } from "./CSDNCrawler";
+import { DongQiuDiCrawler } from "./DongQiuDiCrawler";
+import { DouBanCrawler } from "./DouBanCrawler";
+import { DouYinCrawler } from "./DouYinCrawler";
+import { GitHubCrawler } from "./GitHubCrawler";
+import { GuoJiaDiLiCrawler } from "./GuoJiaDiLiCrawler";
+import { HistoryTodayCrawler } from "./HistoryTodayCrawler";
+import { HuPuCrawler } from "./HuPuCrawler";
+import { ITHomeCrawler } from "./ITHomeCrawler";
+import { LishipinCrawler } from "./LishipinCrawler";
+import { NanfangzhoumoCrawler } from "./NanfangzhoumoCrawler";
+import { PengpaiCrawler } from "./PengpaiCrawler";
+import { QqnewsCrawler } from "./QqnewsCrawler";
+import { QuarkCrawler } from "./QuarkCrawler";
+import { RenminCrawler } from "./RenminCrawler";
+import { ShaoShuPaiCrawler } from "./ShaoShuPaiCrawler";
+import { SougouCrawler } from "./SougouCrawler";
+import { SouhuCrawler } from "./SouhuCrawler";
+import { PLATFORM_CONFIGS } from "../api-routes";
 
 export class CrawlerManager {
   private crawlers: Map<string, BaseCrawler> = new Map();
@@ -62,10 +62,10 @@ export class CrawlerManager {
     this.registerCrawler(new ShaoShuPaiCrawler());
     this.registerCrawler(new SougouCrawler());
     this.registerCrawler(new SouhuCrawler());
-    
+
     // In a full implementation, we would register all 30+ crawlers here
     // For now, we'll add just a few as examples
-    
+
     // Validate that all implemented crawlers are in the API routes configuration
     this.validatePlatformRegistration();
   }
@@ -73,11 +73,14 @@ export class CrawlerManager {
   private validatePlatformRegistration(): void {
     const registeredPlatforms = Array.from(this.crawlers.keys());
     const missingFromConfigs = registeredPlatforms.filter(
-      platform => !(platform in PLATFORM_CONFIGS)
+      (platform) => !(platform in PLATFORM_CONFIGS),
     );
-    
+
     if (missingFromConfigs.length > 0) {
-      console.warn('Warning: The following platforms are implemented but not in PLATFORM_CONFIGS:', missingFromConfigs);
+      console.warn(
+        "Warning: The following platforms are implemented but not in PLATFORM_CONFIGS:",
+        missingFromConfigs,
+      );
     }
   }
 
@@ -90,12 +93,14 @@ export class CrawlerManager {
     if (this.isStaticFileRequest(platform)) {
       throw new Error(`Invalid platform name: ${platform}`);
     }
-    
+
     const crawler = this.crawlers.get(platform);
     if (!crawler) {
       // Check if the platform exists in our configs but hasn't been implemented yet
       if (platform in PLATFORM_CONFIGS) {
-        console.warn(`Platform ${platform} is configured but not yet implemented`);
+        console.warn(
+          `Platform ${platform} is configured but not yet implemented`,
+        );
         throw new Error(`Platform ${platform} not yet implemented`);
       }
       throw new Error(`Platform ${platform} not supported`);
@@ -122,24 +127,31 @@ export class CrawlerManager {
 
   async crawlAll(): Promise<Record<string, HotItem[]>> {
     const results: Record<string, HotItem[]> = {};
-    const promises = Array.from(this.crawlers.entries()).map(async ([name, crawler]) => {
-      try {
-        const data = await crawler.crawl();
-        results[name] = data;
-      } catch (error) {
-        console.error(`Error crawling platform ${name}:`, error);
-        const cacheKey = `hot_${name}`;
-        const cachedData = cache.get(cacheKey);
-        results[name] = cachedData || [];
-      }
-    });
+    const promises = Array.from(this.crawlers.entries()).map(
+      async ([name, crawler]) => {
+        try {
+          const data = await crawler.crawl();
+          results[name] = data;
+        } catch (error) {
+          console.error(`Error crawling platform ${name}:`, error);
+          const cacheKey = `hot_${name}`;
+          const cachedData = cache.get(cacheKey);
+          results[name] = cachedData || [];
+        }
+      },
+    );
 
     await Promise.all(promises);
     return results;
   }
 
-  getSupportedPlatforms(): { name: string; displayName: string; icon: string; url: string }[] {
-    return Array.from(this.crawlers.values()).map(crawler => ({
+  getSupportedPlatforms(): {
+    name: string;
+    displayName: string;
+    icon: string;
+    url: string;
+  }[] {
+    return Array.from(this.crawlers.values()).map((crawler) => ({
       name: crawler.getName(),
       displayName: crawler.getDisplayName(),
       icon: crawler.getIcon(),
@@ -153,7 +165,7 @@ export class CrawlerManager {
       if (this.isStaticFileRequest(platform)) {
         throw new Error(`Invalid platform name: ${platform}`);
       }
-      
+
       const crawler = this.crawlers.get(platform);
       if (!crawler) {
         // Check if the platform exists in our configs but hasn't been implemented yet
@@ -162,7 +174,7 @@ export class CrawlerManager {
         }
         throw new Error(`Platform ${platform} not supported`);
       }
-      
+
       const cacheKey = `hot_${platform}`;
       cache.set(cacheKey, await crawler.crawl(), 5 * 60 * 1000);
     } else {
@@ -180,7 +192,22 @@ export class CrawlerManager {
 
   private isStaticFileRequest(platform: string): boolean {
     // Check if the platform name looks like a static file request
-    const staticFileExtensions = ['.ico', '.css', '.js', '.png', '.jpg', '.jpeg', '.gif', '.svg', '.woff', '.woff2', '.ttf', '.eot'];
-    return staticFileExtensions.some(ext => platform.toLowerCase().endsWith(ext));
+    const staticFileExtensions = [
+      ".ico",
+      ".css",
+      ".js",
+      ".png",
+      ".jpg",
+      ".jpeg",
+      ".gif",
+      ".svg",
+      ".woff",
+      ".woff2",
+      ".ttf",
+      ".eot",
+    ];
+    return staticFileExtensions.some((ext) =>
+      platform.toLowerCase().endsWith(ext),
+    );
   }
 }

@@ -1,113 +1,137 @@
-import { Elysia } from 'elysia';
-import { HotService } from './HotService';
+import { Elysia } from "elysia";
+import { HotService } from "./HotService";
 
 interface WebSocketMessage {
-  type: 'subscribe' | 'request' | 'ping';
+  type: "subscribe" | "request" | "ping";
   source: string;
   data?: any;
 }
 
 const hotService = new HotService();
 
-export const webSocketController = new Elysia({ name: 'controller:websocket' })
-  .ws('/ws', {
+export const webSocketController = new Elysia({ name: "controller:websocket" })
+  .ws("/ws", {
     open(ws: any) {
-      console.log('Client connected to WebSocket');
-      ws.send(JSON.stringify({ 
-        type: 'ping', 
-        source: 'server', 
-        data: { message: 'Connected to azhot WebSocket server' } 
-      }));
+      console.log("Client connected to WebSocket");
+      ws.send(
+        JSON.stringify({
+          type: "ping",
+          source: "server",
+          data: { message: "Connected to azhot WebSocket server" },
+        }),
+      );
     },
     message: async (ws: any, message: unknown) => {
       try {
-        const parsedMessage: WebSocketMessage = JSON.parse((message as Buffer).toString());
+        const parsedMessage: WebSocketMessage = JSON.parse(
+          (message as Buffer).toString(),
+        );
         await handleMessage(ws, parsedMessage, hotService);
       } catch (error) {
-        console.error('Error parsing WebSocket message:', error);
-        ws.send(JSON.stringify({ 
-          type: 'error', 
-          source: 'server', 
-          data: { message: 'Invalid message format' } 
-        }));
+        console.error("Error parsing WebSocket message:", error);
+        ws.send(
+          JSON.stringify({
+            type: "error",
+            source: "server",
+            data: { message: "Invalid message format" },
+          }),
+        );
       }
     },
     close(ws: any) {
-      console.log('Client disconnected from WebSocket');
-    }
+      console.log("Client disconnected from WebSocket");
+    },
   })
-  .ws('/ws/:platform', {
+  .ws("/ws/:platform", {
     open(ws: any) {
       // For this implementation, we'll rely on the URL to determine the platform
       console.log(`Client connected to platform WebSocket`);
-      ws.send(JSON.stringify({ 
-        type: 'ping', 
-        source: 'server', 
-        data: { message: `Connected to platform WebSocket` } 
-      }));
+      ws.send(
+        JSON.stringify({
+          type: "ping",
+          source: "server",
+          data: { message: `Connected to platform WebSocket` },
+        }),
+      );
     },
     message: async (ws: any, message: unknown) => {
       try {
-        const parsedMessage: WebSocketMessage = JSON.parse((message as Buffer).toString());
+        const parsedMessage: WebSocketMessage = JSON.parse(
+          (message as Buffer).toString(),
+        );
         // We need to determine the platform from the WebSocket connection
         // For this, we'll need to track connections and their platforms separately
         await handleMessage(ws, parsedMessage, hotService);
       } catch (error) {
-        console.error('Error parsing WebSocket message:', error);
-        ws.send(JSON.stringify({ 
-          type: 'error', 
-          source: 'server', 
-          data: { message: 'Invalid message format' } 
-        }));
+        console.error("Error parsing WebSocket message:", error);
+        ws.send(
+          JSON.stringify({
+            type: "error",
+            source: "server",
+            data: { message: "Invalid message format" },
+          }),
+        );
       }
     },
     close(ws: any) {
-      console.log('Client disconnected from platform WebSocket');
-    }
+      console.log("Client disconnected from platform WebSocket");
+    },
   });
 
-async function handleMessage(ws: any, message: WebSocketMessage, service: HotService) {
+async function handleMessage(
+  ws: any,
+  message: WebSocketMessage,
+  service: HotService,
+) {
   switch (message.type) {
-    case 'subscribe':
+    case "subscribe":
       // In a real implementation, we would track subscriptions
-      ws.send(JSON.stringify({ 
-        type: 'subscribe', 
-        source: message.source, 
-        data: { message: `Subscribed to ${message.source}` } 
-      }));
+      ws.send(
+        JSON.stringify({
+          type: "subscribe",
+          source: message.source,
+          data: { message: `Subscribed to ${message.source}` },
+        }),
+      );
       break;
-    case 'request':
+    case "request":
       await handleRequest(ws, message.source, service);
       break;
-    case 'ping':
-      ws.send(JSON.stringify({ 
-        type: 'ping', 
-        source: 'server', 
-        data: { message: 'pong' } 
-      }));
+    case "ping":
+      ws.send(
+        JSON.stringify({
+          type: "ping",
+          source: "server",
+          data: { message: "pong" },
+        }),
+      );
       break;
     default:
-      ws.send(JSON.stringify({ 
-        type: 'error', 
-        source: 'server', 
-        data: { message: 'Unknown message type' } 
-      }));
+      ws.send(
+        JSON.stringify({
+          type: "error",
+          source: "server",
+          data: { message: "Unknown message type" },
+        }),
+      );
   }
 }
 
 async function handleRequest(ws: any, platform: string, service: HotService) {
   let data;
-  if (platform === 'all') {
+  if (platform === "all") {
     data = await service.getAllHotData();
-  } else if (platform === 'list') {
+  } else if (platform === "list") {
     data = await service.getPlatformList();
   } else {
     data = await service.getHotData(platform);
   }
-  
-  ws.send(JSON.stringify({ 
-    type: 'request', 
-    source: platform, 
-    data 
-  }));
+
+  ws.send(
+    JSON.stringify({
+      type: "request",
+      source: platform,
+      data,
+    }),
+  );
 }

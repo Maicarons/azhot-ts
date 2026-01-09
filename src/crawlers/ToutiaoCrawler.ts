@@ -1,5 +1,5 @@
-import { BaseCrawler } from './BaseCrawler';
-import { HotItem } from '../types';
+import { BaseCrawler } from "./BaseCrawler";
+import { HotItem } from "../types";
 
 interface TTResponse {
   data: TTData[];
@@ -14,10 +14,10 @@ interface TTData {
 export class ToutiaoCrawler extends BaseCrawler {
   constructor() {
     super(
-      'toutiao',
-      '今日头条',
-      'https://sf3-cdn-tos.douyinstatic.com/obj/eden-cn/uhbfnupkbps/toutiao_favicon.ico', // 根据Go代码中的图标URL更新
-      'https://www.toutiao.com/hot-event/hot-board/?origin=toutiao_pc'
+      "toutiao",
+      "今日头条",
+      "https://sf3-cdn-tos.douyinstatic.com/obj/eden-cn/uhbfnupkbps/toutiao_favicon.ico", // 根据Go代码中的图标URL更新
+      "https://www.toutiao.com/hot-event/hot-board/?origin=toutiao_pc",
     );
   }
 
@@ -26,11 +26,11 @@ export class ToutiaoCrawler extends BaseCrawler {
       // 创建带超时的请求
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 10000); // 10秒超时
-      
+
       const response = await fetch(this.url, {
-        signal: controller.signal
+        signal: controller.signal,
       });
-      
+
       clearTimeout(timeoutId);
 
       if (!response.ok) {
@@ -41,7 +41,7 @@ export class ToutiaoCrawler extends BaseCrawler {
 
       // 检查数据是否为空
       if (!data.data || data.data.length === 0) {
-        console.warn('Toutiao API returned empty data');
+        console.warn("Toutiao API returned empty data");
         return [];
       }
 
@@ -61,13 +61,13 @@ export class ToutiaoCrawler extends BaseCrawler {
           index: index + 1,
           title: item.Title,
           url: item.Url,
-          hotValue: hotValue
+          hotValue: hotValue,
         });
       }
 
       return items;
     } catch (error) {
-      console.error('ToutiaoCrawler error:', error);
+      console.error("ToutiaoCrawler error:", error);
       throw error;
     }
   }

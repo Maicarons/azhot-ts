@@ -31,7 +31,7 @@
 ## 当前已实现的平台
 
 - [x] zhihu (知乎)
-- [x] weibo (微博) 
+- [x] weibo (微博)
 - [x] baidu (百度)
 - [x] toutiao (今日头条)
 - [x] bilibili (哔哩哔哩)
@@ -76,6 +76,7 @@
 ## 后续步骤
 
 接下来可以按照相同模式继续实现其他平台的爬虫，如：
+
 - douyin (抖音)
 - github
 - v2ex

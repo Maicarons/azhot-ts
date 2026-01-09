@@ -7,7 +7,8 @@ interface CacheItem {
 class Cache {
   private store: Map<string, CacheItem> = new Map();
 
-  set(key: string, data: any, ttl: number = 5 * 60 * 1000): void { // Default 5 minutes
+  set(key: string, data: any, ttl: number = 5 * 60 * 1000): void {
+    // Default 5 minutes
     this.store.set(key, {
       data,
       timestamp: Date.now(),

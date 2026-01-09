@@ -1,4 +1,4 @@
-import { HotItem } from '../types';
+import { HotItem } from "../types";
 
 export abstract class BaseCrawler {
   protected name: string;

@@ -33,6 +33,7 @@
 ## 正则表达式说明
 
 使用的正则表达式为：
+
 ```
 <span\s+data-view-component="true"\s+class="text-normal">\s*([^<]+)\s*<\/span>\s*([^<]+)<\/a>\s*<\/h2>\s*<p\sclass="col-9 color-fg-muted my-1 pr-4">\s*([^<]+)\s*<\/p>
 ```

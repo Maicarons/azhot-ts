@@ -1,7 +1,10 @@
-import { load } from 'cheerio';
-import { HotItem } from '../types';
+import { load } from "cheerio";
+import { HotItem } from "../types";
 
-export async function fetchWithTimeout(url: string, timeout = 10000): Promise<string> {
+export async function fetchWithTimeout(
+  url: string,
+  timeout = 10000,
+): Promise<string> {
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), timeout);
 
@@ -9,8 +12,9 @@ export async function fetchWithTimeout(url: string, timeout = 10000): Promise<st
     const response = await fetch(url, {
       signal: controller.signal,
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
-      }
+        "User-Agent":
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
     });
 
     if (!response.ok) {
@@ -22,41 +26,45 @@ export async function fetchWithTimeout(url: string, timeout = 10000): Promise<st
     return html;
   } catch (error) {
     clearTimeout(timeoutId);
-    if ((error as any).name === 'AbortError') {
-      throw new Error('Request timeout');
+    if ((error as any).name === "AbortError") {
+      throw new Error("Request timeout");
     }
     throw error;
   }
 }
 
-export function extractWithSelector(html: string, selector: string, titleAttr: string = 'text'): HotItem[] {
+export function extractWithSelector(
+  html: string,
+  selector: string,
+  titleAttr: string = "text",
+): HotItem[] {
   const $ = load(html);
   const items: HotItem[] = [];
 
   $(selector).each((index, element) => {
-    let title = '';
-    let url = '';
+    let title = "";
+    let url = "";
 
-    if (titleAttr === 'text') {
+    if (titleAttr === "text") {
       title = $(element).text().trim();
     } else {
-      title = $(element).attr(titleAttr) || '';
+      title = $(element).attr(titleAttr) || "";
     }
 
     // Get href attribute if element is an anchor tag
-    if ($(element).is('a')) {
-      url = $(element).attr('href') || '';
+    if ($(element).is("a")) {
+      url = $(element).attr("href") || "";
     } else {
-      const linkElement = $(element).find('a').first();
+      const linkElement = $(element).find("a").first();
       if (linkElement.length > 0) {
-        url = linkElement.attr('href') || '';
+        url = linkElement.attr("href") || "";
       }
     }
 
     // Make sure URL is absolute if it's relative
-    if (url && !url.startsWith('http')) {
+    if (url && !url.startsWith("http")) {
       // This is a simplification - in real implementation you'd want to use the base URL
-      url = url.startsWith('/') ? `https://example.com${url}` : url;
+      url = url.startsWith("/") ? `https://example.com${url}` : url;
     }
 
     if (title) {
@@ -71,8 +79,12 @@ export function extractWithSelector(html: string, selector: string, titleAttr: s
   return items;
 }
 
-export function extractMatches(html: string, pattern: RegExp | string): string[][] {
-  const regex = typeof pattern === 'string' ? new RegExp(pattern, 'g') : pattern;
+export function extractMatches(
+  html: string,
+  pattern: RegExp | string,
+): string[][] {
+  const regex =
+    typeof pattern === "string" ? new RegExp(pattern, "g") : pattern;
   const matches: string[][] = [];
   let match;
 

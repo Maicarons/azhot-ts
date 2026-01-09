@@ -1,22 +1,22 @@
-import { BaseCrawler } from './BaseCrawler';
-import { HotItem } from '../types';
+import { BaseCrawler } from "./BaseCrawler";
+import { HotItem } from "../types";
 
 interface NanfangzhoumoResponse {
   data: {
     hot_contents: Array<{
       subject: string;
       id: number;
-    }>
-  }
+    }>;
+  };
 }
 
 export class NanfangzhoumoCrawler extends BaseCrawler {
   constructor() {
     super(
-      'nanfangzhoumo',
-      '南方周末',
-      'https://www.infzm.com/favicon.ico', // 根据Go代码中的图标URL
-      'https://www.infzm.com/hot_contents?format=json'
+      "nanfangzhoumo",
+      "南方周末",
+      "https://www.infzm.com/favicon.ico", // 根据Go代码中的图标URL
+      "https://www.infzm.com/hot_contents?format=json",
     );
   }
 
@@ -25,17 +25,18 @@ export class NanfangzhoumoCrawler extends BaseCrawler {
       // 创建带超时的请求
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 10000); // 10秒超时
-      
+
       const response = await fetch(this.url, {
         signal: controller.signal,
         headers: {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36',
-          'Accept': 'application/json, text/plain, */*',
-          'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
-          'Referer': 'https://www.infzm.com/'
-        }
+          "User-Agent":
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
+          Accept: "application/json, text/plain, */*",
+          "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+          Referer: "https://www.infzm.com/",
+        },
       });
-      
+
       clearTimeout(timeoutId);
 
       if (!response.ok) {
@@ -48,7 +49,7 @@ export class NanfangzhoumoCrawler extends BaseCrawler {
 
       // 检查数据是否为空
       if (wordList.length === 0) {
-        console.warn('Nanfangzhoumo: API返回数据为空');
+        console.warn("Nanfangzhoumo: API返回数据为空");
         return [];
       }
 
@@ -64,7 +65,7 @@ export class NanfangzhoumoCrawler extends BaseCrawler {
 
       return items;
     } catch (error) {
-      console.error('NanfangzhoumoCrawler error:', error);
+      console.error("NanfangzhoumoCrawler error:", error);
       throw error;
     }
   }

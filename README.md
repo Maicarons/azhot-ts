@@ -53,6 +53,7 @@
 - 📦 模块化架构，易于扩展新平台
 
 ## 项目结构
+
 ```
 azhot/
 ├── src/                 # 源代码目录
@@ -72,14 +73,14 @@ azhot/
 
 ## 支持平台
 
-| 名称 | 路由名 | 可用性 |
-|:----:|:------:|:------:|
-| 知乎 | zhihu | ✅ |
-| 微博 | weibo | ✅ |
-| 百度 | baidu | ✅ |
-| 今日头条 | toutiao | ✅ |
-| 哔哩哔哩 | bilibili | ✅ |
-| 更多平台 | ... | 🔄 开发中 |
+|   名称   |  路由名  |  可用性   |
+| :------: | :------: | :-------: |
+|   知乎   |  zhihu   |    ✅     |
+|   微博   |  weibo   |    ✅     |
+|   百度   |  baidu   |    ✅     |
+| 今日头条 | toutiao  |    ✅     |
+| 哔哩哔哩 | bilibili |    ✅     |
+| 更多平台 |   ...    | 🔄 开发中 |
 
 ## 快速开始
 
@@ -91,18 +92,21 @@ azhot/
 ### 安装步骤
 
 1. 克隆项目
+
 ```bash
 git clone https://github.com/maicarons/azhot.git
 cd azhot
 ```
 
 2. 安装依赖
+
 ```bash
 bun install
 # 或 npm install / yarn install
 ```
 
 3. 配置环境
+
 ```bash
 # 复制配置文件
 cp .env.example .env
@@ -111,6 +115,7 @@ vim .env
 ```
 
 4. 运行项目
+
 ```bash
 # 开发模式运行
 bun run dev
@@ -133,18 +138,22 @@ docker run -d -p 8080:8080 azhot
 项目使用 `.env` 文件进行配置，以下是可用的环境变量：
 
 #### 服务器配置
+
 - `SERVER_HOST`: 服务器主机地址，默认为 `localhost`
 - `SERVER_PORT`: 服务器端口，默认为 `8080`
 
 #### MCP 配置
+
 - `MCP_STDIO_ENABLED`: 是否启用 STDIO MCP 服务器，默认为 `false`
 - `MCP_HTTP_ENABLED`: 是否启用 HTTP MCP 服务器，默认为 `false`
 - `MCP_PORT`: HTTP MCP 服务器端口，默认为 `8081`
 
 #### 调试配置
+
 - `DEBUG`: 是否启用调试模式，默认为 `false`
 
 #### CORS 配置
+
 - `CORS_ALLOW_ORIGINS`: 允许的跨域请求来源，多个来源用逗号分隔，默认为空表示允许所有来源
 
 ## API使用方法
@@ -166,6 +175,7 @@ GET /{platform}
 ```
 
 例如获取知乎热搜：
+
 ```
 GET /zhihu
 ```
@@ -197,6 +207,7 @@ ws://localhost:8080/ws/{platform}
 ```
 
 例如连接知乎热搜WebSocket：
+
 ```
 ws://localhost:8080/ws/zhihu
 ```
@@ -275,6 +286,7 @@ MCP_PORT=8081               # HTTP MCP服务器端口
 ### 使用示例
 
 通过HTTP调用MCP工具：
+
 ```bash
 curl -X POST http://localhost:8080/mcp/tool/execute \
   -H "Content-Type: application/json" \
