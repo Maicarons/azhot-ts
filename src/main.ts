@@ -4,15 +4,41 @@ import { hotController } from "./controllers/HotController";
 import { mcpController } from "./mcp/MCPService";
 import { webSocketController } from "./services/ElysiaWebSocketService";
 import { cache } from "./utils/cache";
-import cron from "node-cron";
 import { HotService } from "./services/HotService";
 import { openapi } from "@elysiajs/openapi";
+import { cron } from "@elysiajs/cron";
 
 const app = new Elysia()
   .use(openapi())
   .use(hotController)
   .use(mcpController)
   .use(webSocketController)
+  .use(
+    cron({
+      name: "cacheCleanup",
+      pattern: "0 * * * *",
+      run() {
+        console.log("Running cache cleanup...");
+        cache.cleanup();
+      },
+    }),
+  )
+  .use(
+    cron({
+      name: "refreshHotData",
+      pattern: "*/30 * * * *",
+      async run() {
+        console.log("Refreshing hot data cache...");
+        try {
+          // 创建一个新的 HotService 实例，而不是访问控制器的装饰器
+          const hotService = new HotService();
+          await hotService.refreshCache();
+        } catch (error) {
+          console.error("Error refreshing cache:", error);
+        }
+      },
+    }),
+  )
   .get("/", () => ({
     message: "Welcome to azhot API Service",
     version: "1.0.0",
@@ -53,41 +79,12 @@ const app = new Elysia()
         description: "WebSocket connection for specific platform",
       },
     ],
-  }));
+  }))
+  .listen(config.server.port);
 
 // Start the server
-app.listen(config.server.port);
 console.log(
-  `🦊 Elysia is running at http://${config.server.host}:${config.server.port}`,
+  `🦊 Azhot-ts is running at http://${config.server.host}:${config.server.port}`,
 );
-
-// Schedule cache cleanup every 10 minutes
-cron.schedule("*/10 * * * *", () => {
-  console.log("Running cache cleanup...");
-  cache.cleanup();
-});
-
-// Refresh hot data cache every 5 minutes for all platforms
-cron.schedule("*/5 * * * *", async () => {
-  console.log("Refreshing hot data cache...");
-  try {
-    // 创建一个新的 HotService 实例，而不是访问控制器的装饰器
-    const hotService = new HotService();
-    await hotService.refreshCache();
-  } catch (error) {
-    console.error("Error refreshing cache:", error);
-  }
-});
-
-// Graceful shutdown
-process.on("SIGINT", () => {
-  console.log("\nShutting down gracefully...");
-  process.exit(0);
-});
-
-process.on("SIGTERM", () => {
-  console.log("Shutting down gracefully...");
-  process.exit(0);
-});
 
 export default app;

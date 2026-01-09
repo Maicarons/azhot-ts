@@ -98,9 +98,14 @@ export class HotService {
   }
 
   async getPlatformList(): Promise<
-    { name: string; displayName: string; icon: string; url: string }[]
+    { name: string; displayName: string; icon: string }[]
   > {
-    return this.crawlerManager.getSupportedPlatforms();
+    const platforms = this.crawlerManager.getSupportedPlatforms();
+    return platforms.map(({ name, displayName, icon }) => ({
+      name,
+      displayName,
+      icon,
+    }));
   }
 
   async refreshCache(platform?: string): Promise<void> {

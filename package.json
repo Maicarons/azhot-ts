@@ -3,11 +3,12 @@
   "version": "1.0.50",
   "scripts": {
     "dev": "bun run --watch src/main.ts",
-    "start": "bun run src/main.ts",
+    "start": "bun run dist/main.js",
     "build": "tsc",
     "prepare": "husky"
   },
   "dependencies": {
+    "@elysiajs/cron": "^1.4.1",
     "@elysiajs/openapi": "^1.4.13",
     "cheerio": "^1.1.2",
     "dotenv": "^17.2.3",
@@ -29,9 +30,9 @@
     "lint-staged": "^16.2.7",
     "prettier": "3.7.4"
   },
-  "module": "src/main.js",
+  "module": "dist/main.js",
   "description": "一个提供各大平台热搜API的聚合服务",
-  "main": "src/main.js",
+  "main": "dist/main.js",
   "keywords": [
     "api",
     "hot-search",
