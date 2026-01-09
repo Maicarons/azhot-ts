@@ -6,37 +6,37 @@
 
 ## 所有平台列表（来自Go代码）
 
-| RouteName | Name | Icon |
-|-----------|------|------|
-| 360doc | 360doc | https://www.360doc.cn/favicon.ico |
-| 360search | 360搜索 | https://ss.360tres.com/static/121a1737750aa53d.ico |
-| acfun | AcFun | https://cdn.aixifan.com/ico/favicon.ico |
-| baidu | 百度 | https://www.baidu.com/favicon.ico |
-| bilibili | 哔哩哔哩 | https://static.hdslb.com/mobile/img/512.png |
-| cctv | 央视网 | https://tv.cctv.com/favicon.ico |
-| csdn | CSDN | https://g.csdnimg.cn/static/logo/favicon32.ico |
-| dongqiudi | 懂球帝 | https://page-dongqiudi.com/zb_users/theme/zblog5_blog/image/favicon.ico |
-| douban | 豆瓣 | https://img3.doubanio.com/favicon.ico |
-| douyin | 抖音 | https://lf1-cdn-tos.bytegoofy.com/goofy/ies/douyin_web/public/favicon.ico |
-| github | GitHub | https://github.githubassets.com/favicons/favicon.png |
-| guojiadili | 国家地理 | http://www.dili360.com/favicon.ico |
-| historytoday | 历史上的今天 | https://www.baidu.com/favicon.ico |
-| hupu | 虎扑 | https://www.hupu.com/favicon.ico |
-| ithome | IT之家 | https://www.ithome.com/favicon.ico |
-| lishipin | 梨视频 | https://page.pearvideo.com/webres/img/logo.png |
-| nanfang | 南方周末 | https://icdn.infzm.com/wap/img/infzm-meta-icon.46b02e1.png |
-| pengpai | 澎湃新闻 | https://www.thepaper.cn/favicon.ico |
-| qqnews | 腾讯新闻 | https://mat1.gtimg.com/qqcdn/qqindex2021/favicon.ico |
-| quark | 夸克 | https://gw.alicdn.com/imgextra/i3/O1CN018r2tKf28YP7ev0fPF_!!6000000007944-2-tps-48-48.png |
-| renmin | 人民网 | http://www.people.com.cn/favicon.ico |
-| sougou | 搜狗 | https://www.sogou.com/favicon.ico |
-| souhu | 搜狐 | https://m.sohu.com/favicon.ico |
-| toutiao | 今日头条 | https://sf3-cdn-tos.douyinstatic.com/obj/eden-cn/uhbfnupkbps/toutiao_favicon.ico |
-| v2ex | V2EX | https://www.v2ex.com/static/favicon.ico |
-| wangyinews | 网易新闻 | https://news.163.com/favicon.ico |
-| weibo | 微博 | https://weibo.com/favicon.ico |
-| xinjingbao | 新京报 | https://www.bjnews.com.cn/favicon.ico |
-| zhihu | 知乎 | https://static.zhihu.com/static/favicon.ico |
+| RouteName    | Name         | Icon                                                                                      |
+| ------------ | ------------ | ----------------------------------------------------------------------------------------- |
+| 360doc       | 360doc       | https://www.360doc.cn/favicon.ico                                                         |
+| 360search    | 360搜索      | https://ss.360tres.com/static/121a1737750aa53d.ico                                        |
+| acfun        | AcFun        | https://cdn.aixifan.com/ico/favicon.ico                                                   |
+| baidu        | 百度         | https://www.baidu.com/favicon.ico                                                         |
+| bilibili     | 哔哩哔哩     | https://static.hdslb.com/mobile/img/512.png                                               |
+| cctv         | 央视网       | https://tv.cctv.com/favicon.ico                                                           |
+| csdn         | CSDN         | https://g.csdnimg.cn/static/logo/favicon32.ico                                            |
+| dongqiudi    | 懂球帝       | https://page-dongqiudi.com/zb_users/theme/zblog5_blog/image/favicon.ico                   |
+| douban       | 豆瓣         | https://img3.doubanio.com/favicon.ico                                                     |
+| douyin       | 抖音         | https://lf1-cdn-tos.bytegoofy.com/goofy/ies/douyin_web/public/favicon.ico                 |
+| github       | GitHub       | https://github.githubassets.com/favicons/favicon.png                                      |
+| guojiadili   | 国家地理     | http://www.dili360.com/favicon.ico                                                        |
+| historytoday | 历史上的今天 | https://www.baidu.com/favicon.ico                                                         |
+| hupu         | 虎扑         | https://www.hupu.com/favicon.ico                                                          |
+| ithome       | IT之家       | https://www.ithome.com/favicon.ico                                                        |
+| lishipin     | 梨视频       | https://page.pearvideo.com/webres/img/logo.png                                            |
+| nanfang      | 南方周末     | https://icdn.infzm.com/wap/img/infzm-meta-icon.46b02e1.png                                |
+| pengpai      | 澎湃新闻     | https://www.thepaper.cn/favicon.ico                                                       |
+| qqnews       | 腾讯新闻     | https://mat1.gtimg.com/qqcdn/qqindex2021/favicon.ico                                      |
+| quark        | 夸克         | https://gw.alicdn.com/imgextra/i3/O1CN018r2tKf28YP7ev0fPF_!!6000000007944-2-tps-48-48.png |
+| renmin       | 人民网       | http://www.people.com.cn/favicon.ico                                                      |
+| sougou       | 搜狗         | https://www.sogou.com/favicon.ico                                                         |
+| souhu        | 搜狐         | https://m.sohu.com/favicon.ico                                                            |
+| toutiao      | 今日头条     | https://sf3-cdn-tos.douyinstatic.com/obj/eden-cn/uhbfnupkbps/toutiao_favicon.ico          |
+| v2ex         | V2EX         | https://www.v2ex.com/static/favicon.ico                                                   |
+| wangyinews   | 网易新闻     | https://news.163.com/favicon.ico                                                          |
+| weibo        | 微博         | https://weibo.com/favicon.ico                                                             |
+| xinjingbao   | 新京报       | https://www.bjnews.com.cn/favicon.ico                                                     |
+| zhihu        | 知乎         | https://static.zhihu.com/static/favicon.ico                                               |
 
 ## 当前已实现的平台
 
@@ -103,40 +103,45 @@
 ## API路由结构
 
 ### 基础路由
+
 - `GET /` - 返回API信息
 - `GET /list` - 获取所有支持的平台列表
 - `GET /all` - 获取所有平台的热搜数据聚合
 - `GET /:platform` - 获取特定平台的热搜数据
 
 ### MCP路由
+
 - `GET /mcp/tools` - 获取可用的MCP工具
 - `POST /mcp/tool/execute` - 执行MCP工具
 
 ### WebSocket路由
+
 - `WS /ws` - 通用WebSocket连接
 - `WS /ws/:platform` - 特定平台WebSocket连接
 
 ## 数据类型定义
 
 ### HotItem 接口
+
 ```typescript
 interface HotItem {
-  index: number;      // 排名序号
-  title: string;      // 热搜标题
-  url?: string;       // 相关链接（可选）
-  hotValue?: number;  // 热度值（可选）
-  desc?: string;      // 描述（可选）
+  index: number; // 排名序号
+  title: string; // 热搜标题
+  url?: string; // 相关链接（可选）
+  hotValue?: number; // 热度值（可选）
+  desc?: string; // 描述（可选）
 }
 ```
 
 ### HotData 接口
+
 ```typescript
 interface HotData {
-  code: number;       // 状态码
-  icon: string;       // 平台图标URL
-  message: string;    // 返回消息
-  obj: HotItem[];     // 热搜数据数组
-  timestamp: number;  // 时间戳
+  code: number; // 状态码
+  icon: string; // 平台图标URL
+  message: string; // 返回消息
+  obj: HotItem[]; // 热搜数据数组
+  timestamp: number; // 时间戳
 }
 ```
 
@@ -166,6 +171,7 @@ export class [PlatformName]Crawler extends BaseCrawler {
 ## 开发优先级建议
 
 ### 第一批（高优先级）
+
 1. douyin (抖音)
 2. github
 3. v2ex
@@ -173,6 +179,7 @@ export class [PlatformName]Crawler extends BaseCrawler {
 5. souhu (搜狐)
 
 ### 第二批（中优先级）
+
 6. csdn
 7. douban (豆瓣)
 8. bilibili (已实现)
@@ -180,6 +187,7 @@ export class [PlatformName]Crawler extends BaseCrawler {
 10. zhihu (知乎，已实现)
 
 ### 第三批（其他平台）
+
 其余平台按需实现
 
 ## 技术注意事项
