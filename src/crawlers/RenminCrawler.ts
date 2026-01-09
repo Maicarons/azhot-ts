@@ -7,7 +7,7 @@ export class RenminCrawler extends BaseCrawler {
     super(
       "renmin",
       "人民网",
-      "http://www.people.com.cn/favicon.ico", // 根据Go代码中的图标URL
+      "http://www.people.com.cn/favicon.ico",
       "http://www.people.com.cn/GB/59476/index.html",
     );
   }
@@ -32,56 +32,28 @@ export class RenminCrawler extends BaseCrawler {
 
       clearTimeout(timeoutId);
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+      if (response.status !== 200) {
+        throw new Error(
+          `HTTP request failed with status code: ${response.status}`,
+        );
       }
 
       const html = await response.text();
 
-      // 使用正则表达式匹配人民网页面中的新闻链接
-      // Go代码中使用的模式: <li><a href="(.*?)" target="_blank">(.*?)</a></li>
+      // 根据提供的HTML内容，新的正则表达式应该匹配包含href和target="_blank"的<a>标签
       const pattern =
-        /<li><a\s+href\s*=\s*["']([^"']*)["']\s+target\s*=\s*["']_blank["']>([^<]+)<\/a><\/li>/gi;
+        /<a\s+href\s*=\s*["']([^"']*)["']\s+target\s*=\s*["']_blank["']\s+rel\s*=\s*["']noopener["']>([^<]+)<\/a>/gi;
       const matches = extractMatches(html, pattern);
 
       // 检查是否匹配到数据
       if (matches.length === 0) {
-        // 尝试另一个常见的链接模式
-        const fallbackPattern =
-          /<a\s+href\s*=\s*["']([^"']*)["']\s+target\s*=\s*["']_blank["']>([^<]+)<\/a>/gi;
-        const fallbackMatches = extractMatches(html, fallbackPattern);
-
-        if (fallbackMatches.length === 0) {
-          console.warn("Renmin: 未匹配到数据，可能页面结构已变更");
-          return [];
-        }
-
-        // 使用备用匹配结果
-        const maxItems = 20;
-        const items: HotItem[] = [];
-        for (
-          let index = 0;
-          index < Math.min(fallbackMatches.length, maxItems);
-          index++
-        ) {
-          const item = fallbackMatches[index];
-          // 添加边界检查
-          if (item.length >= 3) {
-            items.push({
-              index: index + 1,
-              title: item[2].trim(),
-              url: item[1],
-            });
-          }
-        }
-
-        return items;
+        console.warn("Renmin: 未匹配到数据，可能页面结构已变更");
+        return []; // 返回空数组而不是错误，与Go代码逻辑一致
       }
 
-      // 处理主要匹配结果
-      const maxItems = 20;
+      // 处理匹配结果
       const items: HotItem[] = [];
-      for (let index = 0; index < Math.min(matches.length, maxItems); index++) {
+      for (let index = 0; index < matches.length; index++) {
         const item = matches[index];
         // 添加边界检查
         if (item.length >= 3) {
@@ -91,12 +63,6 @@ export class RenminCrawler extends BaseCrawler {
             url: item[1],
           });
         }
-      }
-
-      // 确保有有效数据
-      if (items.length === 0) {
-        console.warn("Renmin: 处理后的数据为空");
-        return [];
       }
 
       return items;
